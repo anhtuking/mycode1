@@ -1,32 +1,38 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Document</title>
     <link rel="stylesheet" href="main.css">
 </head>
+
 <body>
     <h1>NEW PRODUCT</h1>
     <form name="frm">
         <p>
             <label>
                 <b>PRODUCT NAME</b>
-                <input type="text" name="pname" id="pname"/>
+                <input type="text" name="pname" id="pname" />
             </label>
             <label>
-                <b>QUANTITY</b> 
-                <input type="text" name="qty" id="qty"/>
+                <b>QUANTITY</b>
+                <input type="text" name="qty" id="qty" />
             </label>
-        </p>  
+            <label>
+                <b>IMAGES</b>
+                <input type="file" name="image" id="image" accept="image/*">
+            </label>
+        </p>
         <p>
             <label>
                 <b>UNIT PRICE</b>
-                <input type="text" name="up" id="up"/>
+                <input type="text" name="up" id="up" />
             </label>
             <label>
                 <b>DISCOUNT</b>
-                <input type="text" name="dc" id="dc"/>
+                <input type="text" name="dc" id="dc" />
             </label>
         </p>
     </form>
@@ -40,10 +46,11 @@
             <th>Unit Price</th>
             <th>Discount</th>
             <th>Subtotal</th>
+            <th>Images</th>
         </tr>
     </table>
 
-    <script type="text/javascript"> 
+    <script type="text/javascript">
         var id = 0;
         function sell() {
             id++;
@@ -52,16 +59,30 @@
             var price = document.getElementById("up").value;
             var dc = document.getElementById("dc").value;
             var sub = qty * price * (1 - dc / 100);
+
+            // Get the image file
+            var imageInput = document.getElementById("image");
+            var imageFile = imageInput.files[0];
+
             var row = "<tr>";
             row += "<td>" + id + "</td>";
-            row += "<td>" + pname + "</td>"; 
+            row += "<td>" + pname + "</td>";
             row += "<td>" + qty + "</td>";
             row += "<td>" + price + "</td>";
             row += "<td>" + dc + "</td>";
             row += "<td>" + sub + "</td>";
+            row += "<td><img src='" + getImageSrc(imageFile) + "' alt='Product Image' class='product-image'></td>";
             row += "</tr>";
+
             document.getElementById("tbl").innerHTML += row;
         }
-    </script>    
+
+        // Function to get the image source for display
+        function getImageSrc(file) {
+            return file ? URL.createObjectURL(file) : '';
+        }
+
+    </script>
 </body>
+
 </html>
