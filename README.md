@@ -1,2 +1,3 @@
 # mycode1
-sell
+16 th 1
+
